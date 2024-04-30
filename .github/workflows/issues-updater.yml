@@ -1,0 +1,39 @@
+name: Обновление активностей
+
+on:
+  workflow_dispatch:
+  workflow_run:
+    branches:
+      - main
+  schedule:
+    - cron: '30 5 * * *'
+
+jobs:
+  update-dates:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.DOKA_BOT_ACCESS_TOKEN }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Обновление информации о репозитории
+        run: sh issues.sh
+      - name: Создание коммита с обновлениями полей
+        run: |
+          if [[ -z $(git status -s) ]]
+          then
+            echo $(git status)
+          else
+            git config user.name "Doka Dog"
+            git config user.email "<hi@doka.guide>"
+
+            git add "./issues.json"
+            git commit -m "Обновляет информацию о репозитории" --author "Doka Dog <hi@doka.guide>"
+
+            git pull --rebase
+            git push origin main
+
+            exit
+          fi
