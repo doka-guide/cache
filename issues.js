@@ -11,4 +11,4 @@ fs.writeFile('issues.json', JSON.stringify(output), 'utf8', (err) => {
   if (err) throw err
     console.log('Запись в файл завершена')
   }
-);
+)
