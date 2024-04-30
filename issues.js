@@ -3,7 +3,7 @@ const files = fs.readdirSync('./issues/')
 
 const output = []
 files.forEach((fileName) => {
-  const list = JSON.parse(fs.readFileSync(`./issues/${fileName}`, 'utf8'));
+  const list = JSON.parse(fs.readFileSync(`./issues/${fileName}`, 'utf8'))
   output.push(...list)
 })
 
