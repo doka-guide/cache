@@ -8,6 +8,8 @@ on:
 jobs:
   update-dates:
     runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.DOKA_BOT_ACCESS_TOKEN }}
     steps:
       - uses: actions/checkout@v4
         with:
